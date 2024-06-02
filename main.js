@@ -1,35 +1,38 @@
-let input = document.getElementById('input-box');
-let list = document.getElementById('list-container');
+// step 1 get
+let inputBox = document.getElementById('input-box');
+let listContainer = document.getElementById('list-container');
 
+//step 2 add tasks function
 function addTask(){
-    if(input.value === ""){
-        alert('Please enter something');
-    } else {
-        let li = document.createElement('li');
-        li.innerHTML = input.value;
-        list.appendChild(li);
-    }
-    input.value = "";
-    saveData();
+  if(inputBox.value === ""){
+    alert('Please you must enter something')
+  } else{
+    let li = document.createElement('li');
+    li.innerHTML = inputBox.value;
+    listContainer.appendChild(li);
+
+    let span = document.createElement('span');
+    span.innerHTML = "\u00d7";
+    li.appendChild(span);
+  }
+  inputBox.value = "";
+  saveData();
 }
 
+//step 3 saving data and showing it in local storage
 function saveData(){
-    localStorage.setItem('tasks',list.innerHTML);    
+  localStorage.setItem('tasks',li.innerHTML);
 }
+
 function showData(){
-    list.innerHTML = localStorage.getItem('tasks');
-}
-showData();
+  listContainer.innerHTML = localStorage.getItem('tasks');
+};
 
-// the toggle function for finished tasks
-
-list.addEventListener('click',function(event){
-    if(event.target.tagName === "LI"){
-        event.target.classList.toggle('checked');
-    }
-    saveData();
-})
-
-function changeColor(color){
-    document.body.style.backgroundColor = color;
-}
+//step 4 remove and toggle
+listContainer.addEventListener('click' , function(event){
+  if(event.target.tagName === "LI"){
+    event.target.classList.toggle("checked");
+  } else if(event.target.tagName === 'SPAN'){
+    event.target.parentElement.remove();
+  }
+});

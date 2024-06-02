@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+  .remove-icon {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+</style>
+</head>
+<body>
+
+<h2>To-Do List</h2>
+<input type="text" id="taskInput" placeholder="Add a new task">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="taskList">
+  <!-- Tasks will be added here -->
+</ul>
+
+<script>
+function addTask() {
+  var taskInput = document.getElementById("taskInput");
+  var taskText = taskInput.value.trim();
+
+  if (taskText !== "") {
+    var taskList = document.getElementById("taskList");
+
+    // Create a new <li> element
+    var listItem = document.createElement("li");
+    listItem.textContent = taskText;
+
+    // Create a <span> element for remove icon
+    var removeIcon = document.createElement("span");
+    removeIcon.textContent = "❌";
+    removeIcon.className = "remove-icon";
+    removeIcon.onclick = function() {
+      taskList.removeChild(listItem);
+    };
+
+    // Append the remove icon to the list item
+    listItem.appendChild(removeIcon);
+
+    // Append the list item to the task list
+    taskList.appendChild(listItem);
+
+    // Clear the input field
+    taskInput.value = "";
+  } else {
+    alert("Please enter a task!");
+  }
+}
+</script>
+
+</body>
+</html>
